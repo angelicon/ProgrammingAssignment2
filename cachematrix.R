@@ -3,12 +3,12 @@
 
 makeCacheMatrix <- function(x = matrix()) {
         mtx <- NULL
-        set <- function(y) {
-                x <<- y
+        set <- function(y) { ## function set is not actually used but for the sake of the initial example 
+                x <<- y      ## we don't delete this function
                 mtx <<- NULL
         }
-        get <- function() x  ## it's a function without arguments that gets x
-        setmtx <- function(theMean) mtx <<- theMean ## assigns the 'theMean' value to mtx  
+        get <- function() x 
+        setmtx <- function(matrix) mtx <<- matrix 
         getmtx <- function() mtx
         list(set = set, get = get,
              setmtx = setmtx,
@@ -20,14 +20,16 @@ makeCacheMatrix <- function(x = matrix()) {
 ## returned by makeCacheMatrix. In case the inverse is calculated
 ## cacheSolve will retrieve the cached matrix (if it is not changed).
 
-cacheSolve <- function(x, ...) { ## x is an object created with makeCacheMatrix
-        mtx <- x$getmtx()  ## matrix 'mtx' is either NULL or is indeed cached
+cacheSolve <- function(x, ...) { 
+        mtx <- x$getmtx() 
         if(!is.null(mtx)) {
                 message("getting cached data")
                 return(mtx)
         }
         data <- x$get()
+        if( ncol(data)==nrow(data)){
         mtx <- solve(data, ...)
         x$setmtx(mtx)
-        mtx
+        mtx}
+		else message("The cached matrix is not square.\nPlease use again function makeCacheMatrix to cache a square matrix 'NxN'!")
 }
