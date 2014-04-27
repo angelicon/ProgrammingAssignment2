@@ -4,8 +4,8 @@
 makeCacheMatrix <- function(x = matrix()) {
         mtx <- NULL
         set <- function(y) { ## function set is not actually used but for the sake of the initial example 
-                x <<- y      ## we don't delete this function
-                mtx <<- NULL
+                x <<- y      ## we don't delete this function. If we did we should also delete 'set = set,' 
+                mtx <<- NULL ## from line 13
         }
         get <- function() x 
         setmtx <- function(matrix) mtx <<- matrix 
